@@ -1,0 +1,36 @@
+production_system/
+├── scripts/
+│   ├── setup/
+│   │   ├── install.sh
+│   │   ├── create_structure.sh
+│   │   └── configure_services.sh
+│   ├── maintenance/
+│   │   ├── backup.sh
+│   │   ├── restore.sh
+│   │   └── monitor.sh
+│   └── services/
+│       ├── start_services.sh
+│       ├── stop_services.sh
+│       └── restart_services.sh
+├── backend/
+│   ├── app/
+│   ├── migrations/
+│   └── tests/
+├── frontend/
+│   ├── src/
+│   └── public/
+├── database/
+│   ├── init/
+│   └── backups/
+├── services/
+│   ├── nginx/
+│   ├── supervisor/
+│   └── cups/
+├── docker/
+│   ├── backend/
+│   ├── frontend/
+│   └── database/
+└── docs/
+    ├── installation/
+    ├── configuration/
+    └── maintenance/
