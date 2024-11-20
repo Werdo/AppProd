@@ -1,0 +1,15 @@
+database/
+├── init/
+│   ├── 01_schema.sql
+│   ├── 02_functions.sql
+│   ├── 03_triggers.sql
+│   └── 04_initial_data.sql
+├── migrations/
+│   └── versions/
+├── scripts/
+│   ├── backup_db.sh
+│   ├── restore_db.sh
+│   └── maintenance_db.sh
+└── config/
+    ├── postgresql.conf
+    └── pg_hba.conf

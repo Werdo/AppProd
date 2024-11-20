@@ -1,0 +1,43 @@
+{
+    "dashboard": {
+      "id": null,
+      "title": "Production System Dashboard",
+      "tags": ["production"],
+      "timezone": "browser",
+      "panels": [
+        {
+          "title": "HTTP Requests",
+          "type": "graph",
+          "datasource": "Prometheus",
+          "targets": [
+            {
+              "expr": "rate(http_requests_total[5m])",
+              "legendFormat": "{{method}} {{endpoint}}"
+            }
+          ]
+        },
+        {
+          "title": "Device Registrations",
+          "type": "graph",
+          "datasource": "Prometheus",
+          "targets": [
+            {
+              "expr": "rate(device_registrations_total[5m])",
+              "legendFormat": "Registrations"
+            }
+          ]
+        },
+        {
+          "title": "Print Jobs Status",
+          "type": "stat",
+          "datasource": "Prometheus",
+          "targets": [
+            {
+              "expr": "sum(print_jobs_total) by (status)",
+              "legendFormat": "{{status}}"
+            }
+          ]
+        }
+      ]
+    }
+  }

@@ -1,0 +1,45 @@
+frontend/
+├── src/
+│   ├── assets/
+│   │   └── images/
+│   ├── components/
+│   │   ├── common/
+│   │   │   ├── Button.jsx
+│   │   │   ├── Input.jsx
+│   │   │   ├── Card.jsx
+│   │   │   └── Modal.jsx
+│   │   ├── layout/
+│   │   │   ├── Header.jsx
+│   │   │   ├── Sidebar.jsx
+│   │   │   └── Layout.jsx
+│   │   └── features/
+│   │       ├── devices/
+│   │       ├── boxes/
+│   │       └── reports/
+│   ├── hooks/
+│   │   ├── useAuth.js
+│   │   ├── useWebSocket.js
+│   │   └── useApi.js
+│   ├── context/
+│   │   ├── AuthContext.jsx
+│   │   └── WebSocketContext.jsx
+│   ├── services/
+│   │   ├── api.js
+│   │   ├── websocket.js
+│   │   └── storage.js
+│   ├── utils/
+│   │   ├── formatters.js
+│   │   └── validators.js
+│   ├── pages/
+│   │   ├── Login.jsx
+│   │   ├── Dashboard.jsx
+│   │   ├── DeviceRegistration.jsx
+│   │   ├── BoxingProcess.jsx
+│   │   └── Reports.jsx
+│   ├── App.jsx
+│   └── main.jsx
+├── public/
+│   └── index.html
+└── config/
+    ├── routes.js
+    └── constants.js

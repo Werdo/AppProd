@@ -1,0 +1,23 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    libpq-dev \
+    netcat-traditional \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Python dependencies
+COPY requirements requirements/
+RUN pip install --no-cache-dir -r requirements/prod.txt
+
+# Copy application
+COPY . .
+
+# Make scripts executable
+RUN chmod +x scripts/start.sh
+
+# Run application
+CMD ["./scripts/start.sh"]
