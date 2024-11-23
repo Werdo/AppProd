@@ -1,25 +1,20 @@
-# app/main.py
+import uvicorn
 from fastapi import FastAPI
-from fastapi.openapi.utils import get_openapi
-from app.core.config import settings
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(
-    title=settings.PROJECT_NAME,
-    openapi_url=f"{settings.API_V1_STR}/openapi.json"
+    title="Production System API",
+    description="Backend API for the Production System",
+    version="1.0.0"
 )
 
-def custom_openapi():
-    if app.openapi_schema:
-        return app.openapi_schema
-    
-    openapi_schema = get_openapi(
-        title=settings.PROJECT_NAME,
-        version="1.0.0",
-        description="Production System API Documentation",
-        routes=app.routes,
-    )
-    
-    app.openapi_schema = openapi_schema
-    return app.openapi_schema
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-app.openapi = custom_openapi
+if __name__ == "__main__":
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
