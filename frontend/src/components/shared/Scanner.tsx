@@ -7,12 +7,12 @@ interface ScannerProps {
   className?: string;
 }
 
-export const Scanner: React.FC<ScannerProps> = ({ 
-  onScan, 
+export const Scanner: React.FC<ScannerProps> = ({
+  onScan,
   isEnabled = true,
   className = ''
 }) => {
-  const { isScanning, startScanning, stopScanning, lastScannedCode, error } = useQRScanner();
+  const { isScanning, startScanning, stopScanning, lastScannedCode, error, resetError } = useQRScanner();
 
   React.useEffect(() => {
     if (lastScannedCode && isEnabled) {
@@ -21,46 +21,41 @@ export const Scanner: React.FC<ScannerProps> = ({
   }, [lastScannedCode, onScan, isEnabled]);
 
   return (
-    <div className={`bg-white p-6 rounded-lg shadow ${className}`}>
-      <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-medium">QR Scanner</h3>
-        <button
-          onClick={isScanning ? stopScanning : startScanning}
-          disabled={!isEnabled}
-          className={`
-            px-4 py-2 rounded-md 
-            ${isScanning 
-              ? 'bg-red-500 hover:bg-red-600 text-white' 
-              : 'bg-green-500 hover:bg-green-600 text-white'
-            }
-            ${!isEnabled && 'opacity-50 cursor-not-allowed'}
-          `}
-        >
-          {isScanning ? 'Stop Scanning' : 'Start Scanning'}
-        </button>
-      </div>
+    <div className={`bg-white p-4 rounded-lg shadow ${className}`}>
+      <h2 className="text-lg font-bold mb-4">QR Scanner</h2>
       
       {error && (
-        <div className="text-red-500 text-sm mt-2">
+        <div className="mb-4 p-2 bg-red-100 text-red-700 rounded">
           {error}
+          <button 
+            onClick={resetError}
+            className="ml-2 text-sm underline"
+          >
+            Dismiss
+          </button>
         </div>
       )}
-      
-      <div className="text-sm text-gray-500 mt-2">
-        {isScanning ? (
-          <div className="flex items-center">
-            <div className="animate-pulse mr-2 h-2 w-2 rounded-full bg-green-500"></div>
-            Scanning...
-          </div>
-        ) : (
-          'Scanner ready'
-        )}
-      </div>
-      
+
+      <button
+        onClick={isScanning ? stopScanning : startScanning}
+        disabled={!isEnabled}
+        className={`
+          w-full p-2 rounded-md 
+          ${isScanning 
+            ? 'bg-red-500 hover:bg-red-600' 
+            : 'bg-blue-500 hover:bg-blue-600'
+          } 
+          text-white
+          ${!isEnabled && 'opacity-50 cursor-not-allowed'}
+        `}
+      >
+        {isScanning ? 'Stop Scanning' : 'Start Scanning'}
+      </button>
+
       {lastScannedCode && (
-        <div className="mt-4 p-3 bg-gray-50 rounded-md">
-          <div className="text-sm text-gray-500 mb-1">Last scanned code:</div>
-          <div className="font-mono text-sm">{lastScannedCode}</div>
+        <div className="mt-4 p-2 bg-gray-100 rounded">
+          <div className="text-sm text-gray-600">Last scanned:</div>
+          <div className="font-mono">{lastScannedCode}</div>
         </div>
       )}
     </div>

@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:14
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=production
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init/01_schema.sql:/docker-entrypoint-initdb.d/01_schema.sql
+      - ./database/init/02_functions.sql:/docker-entrypoint-initdb.d/02_functions.sql
+      - ./database/init/03_triggers.sql:/docker-entrypoint-initdb.d/03_triggers.sql
+      - ./database/config/postgresql.conf:/etc/postgresql/postgresql.conf
+      - ./database/config/pg_hba.conf:/etc/postgresql/pg_hba.conf
+    command: postgres -c 'config_file=/etc/postgresql/postgresql.conf'
+    ports:
+      - "5433:5432"
+    networks:
+      - app_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user -d production"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
